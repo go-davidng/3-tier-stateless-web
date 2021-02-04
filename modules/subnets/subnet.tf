@@ -1,4 +1,3 @@
-
 resource "ibm_is_subnet" "bastion_sub" {
   name                     = "${var.prefix}bastion"
   vpc                      = var.vpc_id
