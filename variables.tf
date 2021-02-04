@@ -80,5 +80,3 @@ variable "prefix" {
   type        = string
   description = "This is the prefix text that will be prepended in every resource name created by this script."
 }
-
-
