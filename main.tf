@@ -201,4 +201,3 @@ output "vsi-db-ips" {
 output "vsi-bastion-ip" {
   value = module.instance.bastion_ip
 }
-
