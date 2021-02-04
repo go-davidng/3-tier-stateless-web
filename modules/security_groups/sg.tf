@@ -176,6 +176,3 @@ resource "ibm_is_security_group_rule" "ssh_db" {
     port_max = "22"
   }
 }
-
-
-
