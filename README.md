@@ -62,7 +62,7 @@ assigned values and other variables are required.
    - [bastion, web, app, db] image (required) - Image id of choice, it can be a custom import or one
      of the stock images.
    - [bastion, web, app, db] profile (required) - Declares the VSI profile for each VSI.
-     Defaults to cx2-2x4.
+     Defaults to cx2-2x4, mx2-2x16, bx2-2x8 respectively.
 
 5. **modules/load_balancers/variables.tf**
    - lb_port_number (optional) - If needed, add protocol and port number.  This will be referenced
@@ -100,7 +100,7 @@ assigned values and other variables are required.
       }
      ```
 
-NOTE: There may be instance where the load balancers will be timed out during creation.  Rerun the script again, and it should complete the creation of the load balancers.
+NOTE: When creating multiple listeners, there is a possibility where the load balancer status is stuck in updating. A rerun of the script will clear the issue.
 
 **Some helpful terraform commands**
    - terraform init
