@@ -76,7 +76,7 @@ variable "ssh_key" {
 * Type: String
 **/
 variable "web_image" {
-  default = "r006-78fafd7c-4fc6-4373-a58a-637ba6dc3ee8"
+  default = "vsi_image_id"
 }
 
 /**
@@ -85,7 +85,7 @@ variable "web_image" {
 * Type: String
 **/
 variable "app_image" {
-  default = "r006-78fafd7c-4fc6-4373-a58a-637ba6dc3ee8"
+  default = "vsi_image_id"
 }
 
 /**
@@ -94,7 +94,7 @@ variable "app_image" {
 * Type: String
 **/
 variable "db_image" {
-  default = "r006-78fafd7c-4fc6-4373-a58a-637ba6dc3ee8"
+  default = "vsi_image_id"
 }
 
 /**
@@ -103,7 +103,7 @@ variable "db_image" {
 * Type: String
 **/
 variable "bastion_image" {
-  default = "r006-78fafd7c-4fc6-4373-a58a-637ba6dc3ee8"
+  default = "vsi_image_id"
 }
 
 /**
@@ -121,7 +121,7 @@ variable "web_profile" {
 * Type: String
 **/
 variable "app_profile" {
-  default = "cx2-2x4"
+  default = "mx2-2x16"
 }
 
 /**
@@ -130,7 +130,7 @@ variable "app_profile" {
 * Type: String
 **/
 variable "db_profile" {
-  default = "cx2-2x4"
+  default = "bx2-2x8"
 }
 
 /**
