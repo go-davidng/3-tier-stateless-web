@@ -2,17 +2,30 @@ Disclaimer: This 3-tier stateless web terraform script is for experimental purpo
 
 # Overview
 
-This is a self-service Infrastructure as Code (IAC) in the form of several terraform scripts.  The terraform scripts provide  an automated way for developers, DevOps, or system administrators to set up a resilient 3 tier stateless app on IBM Cloud Virtual Private Cloud (VPC).  The user can modify
-the scripts and create templates to meet their application requirements.
+This is a self-service Infrastructure as Code (IAC) in the form of several terraform scripts.  The terraform scripts provide an automated way for developers, DevOps, or system administrators to set up a resilient 3-tier stateless app on IBM Cloud Virtual Private Cloud (VPC).  The 3-tiers, or availability zones, provide an effective HA environment. 
 
-Each tier contain the following VPC resources:
-- IBM Cloud Load Balancer (lb)
+You can modify the scripts and create templates to meet your application requirements.
+
+The scripts create:
+
+* 1 VPC
+* 10 Subnets - 3 web, 3 app, 3 db and 1 Jump
+* 3 Security Groups - one for each tier and a Security Group rule to allow ports
+* 3 Load Balancers - 1 public web lb and 2 private app and db lbs
+* 3 lb Listeners
+* 3 lb Pools
+* 9 lb Pool members
+* 10 Virtual Server Instances (VSIs) - 1 jump, 3 web, 3 app, and 3 db
+* 1 Floating IP attached to the Jump VSI
+
+Each tier contains these VPC resources:
+- IBM Cloud Load Balancer (3)
   - web lb is public
   - app and db lb are private
-- Virtual Server Instances (VSIs)
+- Virtual Server Instances (3)
   - bastion public and floating IP
   - web, app, db VSIs private only
-- Security groups
+- Security group (1)
 
 <img src="./images/terraform-digram-3-tier.svg" width=400>
 
@@ -35,7 +48,7 @@ assigned values and other variables are required.
 1. Main **variables.tf**
    - total_instance (optional)- Number of VSIs created per tier, per zone.  For example, if set to 2,
     then 2 VSIs are created in each tier for each zone (6 web VSIs, 6 app VSIs, and 6 db VSIs).
-    Default to 1.
+    Defaults to 1.
    - zones (optional) - Declares the availability zones within the region.  This should match the region that is
     defined in provider.tf region.  Defaults to the zones in Dallas.
 
@@ -102,12 +115,25 @@ assigned values and other variables are required.
 
 NOTE: When creating multiple listeners, there is a possibility where the load balancer status is stuck in updating. A rerun of the script will clear the issue.
 
-**Some helpful terraform commands**
-   - terraform init
-   - terraform plan
-   - terraform apply
-   - terraform destroy
-   - terraform state list
+**Using the terraform commands**
+
+The terraform scripts prompt you for information from your cloud account.  Have this information ready before you run the scripts:
+
+* Your API key - the actual 44-digit API key, not the API key ID.
+* A prefix for your created resources, to make finding them easier, for example "my-resources-".
+* The region where the resources will be created, for example "us-south".
+* Your Resource Group ID - the 32-digit ID associated with your Resource Group.
+
+To create the resilient 3-tier stateless app:
+
+1. Initialize the repository: **terraform init**.
+2. View the resources the scripts create: **terraform plan**.
+
+    Tip:  If you want to save this information use **terraform plan -out < filename >**.
+3. Create the resources in the cloud:  **terraform apply**.
+4. (Optional) View the modules created: **terraform state list**.
+   
+If you need to remove the resouces, use **terraform destroy**.
 
 ## Additional Resources
 - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs
